@@ -34,6 +34,7 @@ namespace test
 
 using namespace LestaTest;
 using namespace LestaTest::Math;
+static std::mutex renderMutex;
 void WorkerThread(void)
 {
 	while (!workerMustExit)
@@ -59,7 +60,10 @@ void WorkerThread(void)
 			//test::particleSystem_.emit();
 			
 			float deltaTime = delta / 1000.f;
+			std::unique_lock<std::mutex>(renderMutex);
 			test::explosionEffect.update(deltaTime);
+			//std::unique_lock<std::mutex>(renderMutex);
+			//test::explosionEffect.update(deltaTime);
 			//test::explosionEffect.update(deltaTime);
 			//test::particleSystem_.update(deltaTime);
 	
@@ -93,6 +97,7 @@ void mousePosCallback(int x, int y)
 void test::init(void)
 {
 	LestaTest::Random::init();
+	LestaTest::JobSystem::get().init();
 	glutMotionFunc(mousePosCallback);
 	test::particlePrefab_.velocity = Math::Vec2(Random::getFloat(-10, 10), Random::getFloat(-10, 10)) * 20;
 	//for (int i = 0; i < 2048; i++)
@@ -134,12 +139,15 @@ void test::render(void)
 	//float deltaTime = delta / 1000.f;
 	//test::explosionEffect.update(deltaTime);
 	//test::particleSystem_.render();
+	std::unique_lock<std::mutex>(renderMutex);
 	test::explosionEffect.render();
 }
 
 void test::update(int dt)
 {
 	globalTime.fetch_add(dt);
+	float deltaTime = dt / 1000.f;
+	
 	//float deltaTime = dt / 1000.f;
 	
 	//test::explosionEffect.update(deltaTime);

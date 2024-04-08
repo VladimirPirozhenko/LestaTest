@@ -42,6 +42,8 @@
     <ClCompile Include="glut\win32_x11.c" />
     <ClCompile Include="GravityModifier.cpp" />
     <ClCompile Include="Input.cpp" />
+    <ClCompile Include="Job.cpp" />
+    <ClCompile Include="JobQueue.cpp" />
     <ClCompile Include="JobSystem.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Particle.cpp" />
@@ -52,6 +54,7 @@
     <ClCompile Include="Random.cpp" />
     <ClCompile Include="test.cpp" />
     <ClCompile Include="ThreadPool.cpp" />
+    <ClCompile Include="Worker.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Action.h" />
@@ -59,6 +62,8 @@
     <ClInclude Include="ExplosionEffect.h" />
     <ClInclude Include="GravityModifier.h" />
     <ClInclude Include="Input.h" />
+    <ClInclude Include="Job.h" />
+    <ClInclude Include="JobQueue.h" />
     <ClInclude Include="JobSystem.h" />
     <ClInclude Include="KeyCodes.h" />
     <ClInclude Include="MouseCodes.h" />
@@ -77,6 +82,7 @@
     <ClInclude Include="ThreadPool.h" />
     <ClInclude Include="Vec2.h" />
     <ClInclude Include="Color.h" />
+    <ClInclude Include="Worker.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{B3FFBEF9-7B94-488A-98BE-0079263B9E95}</ProjectGuid>
@@ -122,6 +128,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>.</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

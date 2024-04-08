@@ -25,7 +25,7 @@ namespace LestaTest
 		void update(float dt)
 		{
 			//PROFILE_FUNCTION();	
-			for (ParticleEmitter& emitter : aliveEmitters_)
+			for (ParticleEmitter& emitter : emitters_)
 			{
 				if (!emitter.isAlive())
 					continue;
@@ -35,7 +35,7 @@ namespace LestaTest
 		void render()  
 		{
 			//PROFILE_FUNCTION();
-			for (ParticleEmitter& emitter : aliveEmitters_)
+			for (ParticleEmitter& emitter : emitters_)
 			{
 				if (emitter.isAlive())
 				{
@@ -48,7 +48,7 @@ namespace LestaTest
 #ifndef EMITTER_POOL
 		void emit()
 		{
-			for (ParticleEmitter& emitter : aliveEmitters_)
+			for (ParticleEmitter& emitter : emitters_)
 			{
 				emitter.emit();
 			}
@@ -77,7 +77,7 @@ namespace LestaTest
 #endif
 		void setPosition(const Math::Vec2 position) 
 		{ 
-			for (ParticleEmitter& emitter : aliveEmitters_)
+			for (ParticleEmitter& emitter : emitters_)
 			{
 				emitter.setPosition(position);
 			}
@@ -85,7 +85,7 @@ namespace LestaTest
 
 		void addEmitter(const ParticleEmitter& emitter)
 		{
-			aliveEmitters_.emplace_back(emitter);
+			emitters_.emplace_back(emitter);
 		}
 
 		inline void setRenderer(const IParticleRendererPtr renderer)
@@ -96,7 +96,7 @@ namespace LestaTest
 	private:
 
 		IParticleRendererPtr renderer_;
-		std::vector<ParticleEmitter> aliveEmitters_;
+		std::vector<ParticleEmitter> emitters_;
 		std::vector<ParticleEmitter> emitterPool_;
 		size_t poolIndex_ = maxEmitters_ - 1;
 		//static constexpr size_t effectsCount = 20480;

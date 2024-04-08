@@ -12,14 +12,12 @@ namespace LestaTest
 		{
 			//for (int i = 0; i < 2048;i++)
 			{
-				const size_t emitRate = 64;
+				const size_t emitRate = 309;
 				const size_t maxEffectsCount = 2048;
 				explosionEmitter_ = ParticleEmitter(Math::Vec2{ 0,0 }, Math::Vec2{ 1,1 },
-													Color(Random::getFloat(), 
-													Random::getFloat(), 
-													Random::getFloat()),
+													Random::getColor(),
 													maxEffectsCount	* emitRate, emitRate,
-													Math::Vec2(0.5f,1));
+													Math::Vec2(3.5f,7.f));
 
 				explosionEmitter_.setRandomVelocity({ -100,-100 }, { 100,100 });
 
@@ -55,7 +53,7 @@ namespace LestaTest
 		}
 		void onExplode(const Particle& particle)
 		{
-			if (Random::getFloat() > 0.5f)
+			if (Random::getFloat() > 0.75f)
 			{
 				explosionParticleSystem_.setPosition(particle.position);
 				explosionParticleSystem_.emit();
