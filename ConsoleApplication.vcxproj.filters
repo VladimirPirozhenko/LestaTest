@@ -1,0 +1,223 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="glut">
+      <UniqueIdentifier>{465be19b-57a5-4671-b8bb-49d57dd881fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Input">
+      <UniqueIdentifier>{800617cc-4e2a-4318-9db9-39a459232e0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ParticleSystem">
+      <UniqueIdentifier>{6ee83159-23b8-4a02-9792-b732c087087f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Math">
+      <UniqueIdentifier>{834621bf-519a-412d-a38e-5945f70112e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utils">
+      <UniqueIdentifier>{a962fd1a-813b-4531-b1cb-8f0b44b794e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ParticleSystem\Effects">
+      <UniqueIdentifier>{7afb0582-355c-45dc-bc22-0b16d5be3c04}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="glut\glut_8x13.c">
+      <Filter>glut</Filter>
+    </ClCompile>
+    <ClCompile Include="glut\glut_9x15.c">
+      <Filter>glut</Filter>
+    </ClCompile>
+    <ClCompile Include="glut\glut_cmap.c">
+      <Filter>glut</Filter>
+    </ClCompile>
+    <ClCompile Include="glut\glut_cursor.c">
+      <Filter>glut</Filter>
+    </ClCompile>
+    <ClCompile Include="glut\glut_event.c">
+      <Filter>glut</Filter>
+    </ClCompile>
+    <ClCompile Include="glut\glut_gamemode.c">
+      <Filter>glut</Filter>
+    </ClCompile>
+    <ClCompile Include="glut\glut_get.c">
+      <Filter>glut</Filter>
+    </ClCompile>
+    <ClCompile Include="glut\glut_hel10.c">
+      <Filter>glut</Filter>
+    </ClCompile>
+    <ClCompile Include="glut\glut_hel12.c">
+      <Filter>glut</Filter>
+    </ClCompile>
+    <ClCompile Include="glut\glut_hel18.c">
+      <Filter>glut</Filter>
+    </ClCompile>
+    <ClCompile Include="glut\glut_init.c">
+      <Filter>glut</Filter>
+    </ClCompile>
+    <ClCompile Include="glut\glut_key.c">
+      <Filter>glut</Filter>
+    </ClCompile>
+    <ClCompile Include="glut\glut_keyctrl.c">
+      <Filter>glut</Filter>
+    </ClCompile>
+    <ClCompile Include="glut\glut_keyup.c">
+      <Filter>glut</Filter>
+    </ClCompile>
+    <ClCompile Include="glut\glut_mesa.c">
+      <Filter>glut</Filter>
+    </ClCompile>
+    <ClCompile Include="glut\glut_mroman.c">
+      <Filter>glut</Filter>
+    </ClCompile>
+    <ClCompile Include="glut\glut_roman.c">
+      <Filter>glut</Filter>
+    </ClCompile>
+    <ClCompile Include="glut\glut_swap.c">
+      <Filter>glut</Filter>
+    </ClCompile>
+    <ClCompile Include="glut\glut_tr10.c">
+      <Filter>glut</Filter>
+    </ClCompile>
+    <ClCompile Include="glut\glut_tr24.c">
+      <Filter>glut</Filter>
+    </ClCompile>
+    <ClCompile Include="glut\glut_util.c">
+      <Filter>glut</Filter>
+    </ClCompile>
+    <ClCompile Include="glut\glut_win.c">
+      <Filter>glut</Filter>
+    </ClCompile>
+    <ClCompile Include="glut\win32_glx.c">
+      <Filter>glut</Filter>
+    </ClCompile>
+    <ClCompile Include="glut\win32_menu.c">
+      <Filter>glut</Filter>
+    </ClCompile>
+    <ClCompile Include="glut\win32_util.c">
+      <Filter>glut</Filter>
+    </ClCompile>
+    <ClCompile Include="glut\win32_winproc.c">
+      <Filter>glut</Filter>
+    </ClCompile>
+    <ClCompile Include="glut\win32_x11.c">
+      <Filter>glut</Filter>
+    </ClCompile>
+    <ClCompile Include="test.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>Source Files\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleSystem.cpp">
+      <Filter>ParticleSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Particle.cpp">
+      <Filter>ParticleSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="ExplosionEffect.cpp">
+      <Filter>ParticleSystem\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleEmitter.cpp">
+      <Filter>ParticleSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleCulling.cpp">
+      <Filter>ParticleSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="JobSystem.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="ThreadPool.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Random.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="GravityModifier.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleSystemManager.cpp">
+      <Filter>ParticleSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="ChainExplosionEffect.cpp">
+      <Filter>ParticleSystem\Effects</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="test.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>Source Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="MouseCodes.h">
+      <Filter>Source Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyCodes.h">
+      <Filter>Source Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Particle.h">
+      <Filter>ParticleSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleSystem.h">
+      <Filter>ParticleSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Vec2.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Color.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="ExplosionEffect.h">
+      <Filter>ParticleSystem\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleCulling.h">
+      <Filter>ParticleSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleEmitter.h">
+      <Filter>ParticleSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Profiler.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Random.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="JobSystem.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="RingBuffer.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreadPool.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Action.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticlePack.h">
+      <Filter>ParticleSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="GravityModifier.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleSystemManager.h">
+      <Filter>ParticleSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="ChainExplosionEffect.h">
+      <Filter>ParticleSystem\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="PtrTypedefs.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleRenderer.h">
+      <Filter>ParticleSystem</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
