@@ -10,19 +10,21 @@ namespace LestaTest
 	public:
 		static inline void init()
 		{
-			randomEngine_.seed(std::random_device()());
+			randomEngine_.seed(randomDevice_());		
 		}
 
 		static inline float getFloat()
 		{
+			randomEngine_.seed(randomDevice_());
 			return static_cast<float>(distribution_(randomEngine_)) / static_cast<float>((std::numeric_limits<size_t>::max)());
 		}
 		
 		static float getFloat(float min,float max)
 		{
-			static thread_local  std::default_random_engine defaultRandomEngine_;
+			static thread_local std::default_random_engine defaultRandomEngine_;
 			std::uniform_real_distribution<> distribution(min,max);
-			return static_cast<float>(distribution(defaultRandomEngine_));
+			randomEngine_.seed(randomDevice_());
+			return static_cast<float>(distribution(randomEngine_));
 		}
 
 		static inline Math::Vec2 getVec2(Math::Vec2 min, Math::Vec2 max)
@@ -35,7 +37,8 @@ namespace LestaTest
 			return Color(getFloat(),getFloat(),getFloat());
 		}
 	private:
+		static thread_local std::random_device randomDevice_; 
 		static thread_local std::mt19937 randomEngine_;
-		static std::uniform_int_distribution<std::mt19937::result_type> distribution_;
+		static thread_local std::uniform_int_distribution<std::mt19937::result_type> distribution_;
 	};
 }

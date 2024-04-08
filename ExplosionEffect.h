@@ -13,10 +13,11 @@ namespace LestaTest
 			//for (int i = 0; i < 2048;i++)
 			{
 				explosionParticleSystem_ = makePtr<ParticleSystem>();
-				const size_t emitRate = 64;
+				const size_t emitRate = 400;
 				const size_t maxEffectsCount = 2048;
+				Color randomColor = Random::getColor();
 				ParticleEmitterPtr explosionEmitter_ = makePtr<ParticleEmitter>(Math::Vec2{ 0,0 }, Math::Vec2{ 1,1 },
-													Random::getColor(),
+					Color(Random::getFloat(), Random::getFloat(), Random::getFloat()),
 													maxEffectsCount	* emitRate, emitRate,
 													Math::Vec2(3.5f,7.f));
 

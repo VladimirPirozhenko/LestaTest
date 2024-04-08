@@ -47,14 +47,14 @@ namespace LestaTest
 	// This little helper function will not let the system to be deadlocked while the main thread is waiting for something
 	inline void JobSystem::poll()
 	{
-		wakeCondition.notify_all(); // wake one worker thread
+		wakeCondition.notify_one(); // wake one worker thread
 		std::this_thread::yield(); // allow this thread to be rescheduled
 	}
 
 	void JobSystem::execute(const std::function<void()>& job)
 	{
 		// The main thread label state is updated:
-		currentLabel += 1;
+		//currentLabel += 1;
 
 		// Try to push a new job until it is pushed successfully:
 		while (!jobPool.push_back(job))
@@ -62,7 +62,7 @@ namespace LestaTest
 			poll();
 		}
 
-		wakeCondition.notify_one(); // wake one thread
+		//wakeCondition.notify_one(); // wake one thread
 	}
 
 

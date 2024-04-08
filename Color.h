@@ -19,6 +19,10 @@ namespace LestaTest
             : r(r), g(g), b(b), a(a)
         {}
 
+        constexpr Color(float val)
+            : r(val), g(val), b(val), a(1)
+        {}
+
         float r;
         float g;
         float b;

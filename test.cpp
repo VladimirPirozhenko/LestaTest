@@ -34,7 +34,11 @@ namespace test
 
 using namespace LestaTest;
 using namespace LestaTest::Math;
-static std::mutex renderMutex;
+
+Math::Vec2 mousePosition;
+std::atomic_int inputDataReady{ 0 };
+
+
 void WorkerThread(void)
 {
 	while (!workerMustExit)
@@ -55,17 +59,14 @@ void WorkerThread(void)
 		}
 		if (delta > 0)
 		{
+			while (inputDataReady.load(std::memory_order_acquire) == 1) 
+			{
+				inputDataReady.store(0);
+				test::explosionEffect.setPosition(mousePosition);//Math::Vec2(x, y)
+				test::explosionEffect.explosion();
 
-			Math::vec2 mousePos = Input::getMousePosition();
-
-			//test::particlePrefab_.position = Math::Vec2(mousePos.x, test::SCREEN_HEIGHT - mousePos.y);
-
-			//test::particlePrefab_.lifeTime = 2.f;
-			//ParticleEmitter emitter;
-			//(test::particlePrefab_.velocity, test::particlePrefab_.velocity,Color::blue, 1000, 5.f);
-			
-			//test::particleSystem_.emit();
-	
+				std::cout << inputDataReady.is_lock_free() << '\n';
+			}
 			float deltaTime = delta / 1000.f;
 			//std::unique_lock<std::mutex>(renderMutex);
 			//test::explosionEffect.update(deltaTime);
@@ -82,6 +83,7 @@ void WorkerThread(void)
 			std::this_thread::sleep_for(std::chrono::milliseconds(MIN_UPDATE_PERIOD_MS - delta));
 		fps++;
 		nvtxRangePop();
+
 	}
 }
 
@@ -97,7 +99,7 @@ void test::mouseButtonCallback(int button, int state, int x, int y)
 
 void mousePosCallback(int x, int y)
 {
-	Input::onMousePosChanged(Math::vec2{x, y});
+	Input::onMousePosChanged(Math::Vec2(x, y));
 	glutPostRedisplay();
 }
 
@@ -181,23 +183,7 @@ void test::update(int dt)
 
 void test::on_click(int x, int y)
 {
-	//test::particleSystem_.setPosition(Math::Vec2(x, test::SCREEN_HEIGHT - y));
-	//test::particleSystem_.emit();
-	//JobSystem::get().execute([&]()
-	//	{
-			explosionEffect.setPosition(Math::Vec2(x, y));
-			explosionEffect.explosion();;
-	//	});
-	//JobSystem::get().wait();
-
-	//test::particleSystem_.setPosition(Math::Vec2(x, y));
-//	test::particleSystem_.emit();
-	//particlePrefab_.position = Math::Vec2(x, test::SCREEN_HEIGHT - y);
-	//particlePrefab_.velocity = Math::Vec2::down()*20;
-	//particlePrefab_.lifeTime = 10.f;
-	//particleSystem_.emit(particlePrefab_);
-	//for (size_t i = 0; i < 2; ++i)
-	//	platform::drawPoint(x, test::SCREEN_HEIGHT - y, 0, 1, 0, 0);
-
+	mousePosition = Math::Vec2(x, y);
+	inputDataReady.store(1, std::memory_order_release);
 }
 

@@ -48,7 +48,7 @@ namespace LestaTest
 			platform::drawPoint(pos.x, platform::SCREEN_HEIGHT - pos.y, color.r, color.g, color.b, color.a);
 		};
 
-		bool isInFrustum(const Math::Vec2& pos) const override final
+		bool isInFrustum(const Math::Vec2& pos) const override final //TODO Make it static!
 		{
 			if (pos.x  >= frustum_.left      
 				&& pos.x <= frustum_.right   

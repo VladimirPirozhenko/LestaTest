@@ -3,6 +3,7 @@
 #include "MouseCodes.h"
 #include <unordered_map>
 #include <iostream>
+#include <Vec2.h>
 
 namespace LestaTest
 {
@@ -28,30 +29,22 @@ namespace LestaTest
 		eInputState currentState = eInputState::IDLE;
 		eInputState previousState = eInputState::IDLE;
 	};
-	namespace Math
-	{
-		struct vec2
-		{
-			int x;
-			int y;
-		};
-	}
 
 	class Input
 	{
 	public:
 
-		static void onCursorVisibilityChanged(const Math::vec2& mousePos)
+		static void onCursorVisibilityChanged(const Math::Vec2& mousePos)
 		{
 			mousePos_ = mousePos;
 		}
 
-		static void onMousePosChanged(const Math::vec2& mousePos)
+		static void onMousePosChanged(const Math::Vec2& mousePos)
 		{
 			mousePos_ = mousePos;
 		}
 
-		static Math::vec2 getMousePosition()
+		static Math::Vec2 getMousePosition()
 		{
 			return mousePos_;
 		}
@@ -170,7 +163,7 @@ namespace LestaTest
 		}
 
 	private:
-		static Math::vec2 mousePos_;
+		static Math::Vec2 mousePos_;
 		static std::unordered_map<eKeyCode, InputInfo> keyMap_;
 		static std::unordered_map<eMouseCode, InputInfo> mouseButtonMap_;
 
