@@ -24,33 +24,33 @@ namespace LestaTest
 		~ParticleSystem() = default;
 		void update(float dt)
 		{
-			//PROFILE_FUNCTION();	
-			for (ParticleEmitter& emitter : emitters_)
+	
+			for (const ParticleEmitterPtr& emitter : emitters_)
 			{
-				if (!emitter.isAlive())
+				if (!emitter->isAlive())
 					continue;
-				emitter.update(dt);
+				emitter->update(dt);
 			}		
 		}
-		void render()  
+		void render() const
 		{
 			//PROFILE_FUNCTION();
-			for (ParticleEmitter& emitter : emitters_)
+			for (const ParticleEmitterPtr& emitter : emitters_)
 			{
-				if (emitter.isAlive())
+				if (emitter->isAlive())
 				{
 					//emitter.cull(renderer_);
-					emitter.render(renderer_);
+					emitter->render(renderer_);
 				}
 					
 			}
 		}
 #ifndef EMITTER_POOL
-		void emit()
+		void emit() const
 		{
-			for (ParticleEmitter& emitter : emitters_)
+			for (const ParticleEmitterPtr& emitter : emitters_)
 			{
-				emitter.emit();
+				emitter->emit();
 			}
 		}
 #else
@@ -75,15 +75,15 @@ namespace LestaTest
 			}
 		}
 #endif
-		void setPosition(const Math::Vec2 position) 
+		void setPosition(const Math::Vec2& position) 
 		{ 
-			for (ParticleEmitter& emitter : emitters_)
+			for (ParticleEmitterPtr& emitter : emitters_)
 			{
-				emitter.setPosition(position);
+				emitter->setPosition(position);
 			}
 		}
 
-		void addEmitter(const ParticleEmitter& emitter)
+		void addEmitter(const ParticleEmitterPtr emitter) noexcept
 		{
 			emitters_.emplace_back(emitter);
 		}
@@ -96,8 +96,8 @@ namespace LestaTest
 	private:
 
 		IParticleRendererPtr renderer_;
-		std::vector<ParticleEmitter> emitters_;
-		std::vector<ParticleEmitter> emitterPool_;
+		std::vector<ParticleEmitterPtr> emitters_;
+		//std::vector<ParticleEmitter> emitterPool_;
 		size_t poolIndex_ = maxEmitters_ - 1;
 		//static constexpr size_t effectsCount = 20480;
 		//static constexpr size_t particlesPerEffect = 640;

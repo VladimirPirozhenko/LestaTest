@@ -45,7 +45,14 @@ void WorkerThread(void)
 		const int time = globalTime.load();
 		const int delta = time - lastTime;
 		lastTime = time;
-
+		static int accum = 0;
+		static int fps = 0;
+		accum += delta;
+		if (accum >= 1000) {
+			printf("particleThread fps %d\n", fps);
+			fps = 0;
+			accum = 0;
+		}
 		if (delta > 0)
 		{
 
@@ -58,13 +65,13 @@ void WorkerThread(void)
 			//(test::particlePrefab_.velocity, test::particlePrefab_.velocity,Color::blue, 1000, 5.f);
 			
 			//test::particleSystem_.emit();
-			
+	
 			float deltaTime = delta / 1000.f;
-			std::unique_lock<std::mutex>(renderMutex);
-			test::explosionEffect.update(deltaTime);
 			//std::unique_lock<std::mutex>(renderMutex);
 			//test::explosionEffect.update(deltaTime);
+			//std::unique_lock<std::mutex>(renderMutex);
 			//test::explosionEffect.update(deltaTime);
+			test::explosionEffect.update(deltaTime);
 			//test::particleSystem_.update(deltaTime);
 	
 			// some code
@@ -73,7 +80,7 @@ void WorkerThread(void)
 		static const int MIN_UPDATE_PERIOD_MS = 10;
 		if (delta < MIN_UPDATE_PERIOD_MS)
 			std::this_thread::sleep_for(std::chrono::milliseconds(MIN_UPDATE_PERIOD_MS - delta));
-
+		fps++;
 		nvtxRangePop();
 	}
 }
@@ -102,7 +109,6 @@ void test::init(void)
 	test::particlePrefab_.velocity = Math::Vec2(Random::getFloat(-10, 10), Random::getFloat(-10, 10)) * 20;
 	//for (int i = 0; i < 2048; i++)
 
-	
 		//ParticleEmitter emitter = ParticleEmitter(test::particlePrefab_.position, { 1,1 }, Color(Random::getFloat(), Random::getFloat(), Random::getFloat()), 64/*Random.getFloat(64, 64)*/, 20.f);
 		//emitter.setRandomVelocity({ -100,-100 }, { 100,100 });
 
@@ -139,8 +145,13 @@ void test::render(void)
 	//float deltaTime = delta / 1000.f;
 	//test::explosionEffect.update(deltaTime);
 	//test::particleSystem_.render();
-	std::unique_lock<std::mutex>(renderMutex);
-	test::explosionEffect.render();
+	//std::unique_lock<std::mutex>(renderMutex);
+	//JobSystem::get().execute([]()
+//	{
+
+		test::explosionEffect.render();
+	//});
+	//JobSystem::get().wait();
 }
 
 void test::update(int dt)
@@ -172,8 +183,13 @@ void test::on_click(int x, int y)
 {
 	//test::particleSystem_.setPosition(Math::Vec2(x, test::SCREEN_HEIGHT - y));
 	//test::particleSystem_.emit();
-	explosionEffect.setPosition(Math::Vec2(x, y));
-	explosionEffect.explosion();
+	//JobSystem::get().execute([&]()
+	//	{
+			explosionEffect.setPosition(Math::Vec2(x, y));
+			explosionEffect.explosion();;
+	//	});
+	//JobSystem::get().wait();
+
 	//test::particleSystem_.setPosition(Math::Vec2(x, y));
 //	test::particleSystem_.emit();
 	//particlePrefab_.position = Math::Vec2(x, test::SCREEN_HEIGHT - y);
