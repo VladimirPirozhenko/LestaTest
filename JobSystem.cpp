@@ -3,7 +3,8 @@
 
 #include "JobSystem.h"
 #include <iostream>
-//
+#include "Profiler.h"
+
 namespace LestaTest
 {
 	void JobSystem::init()
@@ -15,32 +16,13 @@ namespace LestaTest
 		for (size_t threadID = 0; threadID < threadsCount_; threadID++)
 		{
 			std::thread worker([this] {
-				Job job; 
+				Job job;
 				while (true)
 				{
-					if (jobPool_.tryPop(job))
-					{
-						job();
-						jobCounter_.fetch_sub(1); 
-					}
-					else
-					{
-						std::unique_lock<std::mutex> lock(wakeMutex_);
-						wakeCondition_.wait(lock);
-					}
+					doWork(job);
 				}
 				});
 			worker.detach(); 
-		}
-	}
-
-	void JobSystem::run()
-	{
-		Job job; 
-		if (jobPool_.tryPop(job))
-		{
-			job(); 
-			jobCounter_.fetch_sub(1); 
 		}
 	}
 
@@ -49,12 +31,22 @@ namespace LestaTest
 		jobCounter_.fetch_add(1);
 		while (!jobPool_.tryPush(job))
 		{
-			if (hasWork())
-			{
-				wakeCondition_.notify_all();
-			}
+			wakeCondition_.notify_all();
 			std::this_thread::yield();
 		}
+	}
+
+	void JobSystem::doWork(Job& job)
+	{
+		if (jobPool_.tryPop(job))
+		{
+			job();
+			jobCounter_.fetch_sub(1);
+			return;
+		}
+
+		std::unique_lock<std::mutex> lock(wakeMutex_);
+		wakeCondition_.wait(lock);
 	}
 
 	bool JobSystem::hasWork()

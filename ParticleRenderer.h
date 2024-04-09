@@ -11,7 +11,6 @@ namespace platform
 	void drawPoint(float x, float y, float r, float g, float b, float a);
 };
 
-
 namespace LestaTest
 {
 	class IParticleRenderer;
@@ -22,7 +21,6 @@ namespace LestaTest
 	public:
 		virtual ~IParticleRenderer() = default;
 		virtual void render(const Math::Vec2& pos, const Color& color) const  = 0;
-		virtual bool isInFrustum(const Math::Vec2& pos) const = 0;
 	};
 
 	class ParticleRenderer;
@@ -31,49 +29,15 @@ namespace LestaTest
 	class ParticleRenderer : public IParticleRenderer
 	{
 	public:
-		static ParticleRendererPtr create()
-		{
-			return ParticleRendererPtr(std::make_shared<ParticleRenderer>());
-		}
+		static ParticleRendererPtr create();
 
-		//ParticleRenderer() = default;
+		ParticleRenderer() = default;
 
 		virtual ~ParticleRenderer() = default;
 
-		void render(const Math::Vec2& pos,const Color& color) const override final
-		{
-			platform::drawPoint(pos.x, platform::SCREEN_HEIGHT - pos.y, color.r, color.g, color.b, color.a);
-		};
+		inline void render(const Math::Vec2& pos, const Color& color) const override final;
 
-		ParticleRenderer()
-		{
-			frustum_ = { 0.f, platform::SCREEN_WIDTH, platform::SCREEN_HEIGHT, 0.f };
-		}
-		bool isInFrustum(const Math::Vec2& pos) const override final //TODO Make it static!
-		{
-			{
-				if (pos.x >= frustum_.left
-					&& pos.x <= frustum_.right
-					&& pos.y <= frustum_.top
-					&& pos.y >= frustum_.bottom)
-				{
-					return true;
-				}
-				return false;
-			}
-
-		}
-		static bool isInFrustum_s(const Math::Vec2& pos)
-		{
-			if (pos.x  >= frustum_.left      
-				&& pos.x <= frustum_.right   
-				&& pos.y <= frustum_.top     
-				&& pos.y >= frustum_.bottom) 
-			{
-				return true;
-			}
-			return false;
-		}
+		static bool isInFrustum(const Math::Vec2& pos);
 
 	private:
 		struct Frustum

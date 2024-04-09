@@ -44,14 +44,6 @@ void idle(void)
 	static int lastTime = 0;
 	int delta = time - lastTime;
 	lastTime = time;
-	static int accum = 0;
-	static int fps = 0;
-	accum += delta;
-	if (accum >= 1000) {
-		printf("logic fps %d\n", fps);
-		fps = 0;
-		accum = 0;
-	}
 	// check memory
 	{
 		static int nextStats = -1;
@@ -87,7 +79,6 @@ void idle(void)
 	nvtxRangePop();
 
 	glutPostWindowRedisplay(currentWindow);
-	fps++;
 	nvtxRangePop();
 };
 

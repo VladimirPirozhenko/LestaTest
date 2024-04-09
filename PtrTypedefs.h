@@ -18,4 +18,13 @@ namespace LestaTest
 	{
 		return std::shared_ptr<T>(std::make_shared<T>(std::forward<Args>(args)...));//);//new T(std::forward<Args>(args)...)
 	}
+
+	class ParticleEmitter;
+	typedef Ptr<ParticleEmitter> ParticleEmitterPtr;
+
+	class IParticleRenderer;
+	typedef Ptr<IParticleRenderer> IParticleRendererPtr;
+
+	class ParticleSystem;
+	typedef Ptr<ParticleSystem> ParticleSystemPtr;
 };

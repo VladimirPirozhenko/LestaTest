@@ -18,40 +18,16 @@ namespace LestaTest
                 y = 0;
             };
 
-           inline constexpr Vector2(T x, T y) noexcept
+            explicit constexpr Vector2(T x, T y) noexcept
             { 
                 this->x = x;  
                 this->y = y;
             }
 
-            explicit inline constexpr Vector2(T x) noexcept
+            explicit constexpr Vector2(T x) noexcept
             { 
                 this->x = y = x;
             }
-
-            //inline constexpr Vector2(const Vector2<T>& other) noexcept
-            //{ 
-            //    x = other.x;
-            //    y = other.y;
-            //}
-
-            //Vector2 operator=Vector2(const Vector2<T>& other) noexcept
-            //{
-            //    x = other.x;
-            //    y = other.y;
-            //}
-
-            //inline constexpr Vector2(Vector2<T>&& other) noexcept
-            //{
-            //    x = std::move(other.x);
-            //    y = std::move(other.y);
-            //}
-
-            //Vector2 operator=Vector2(Vector2<T>&& other) noexcept
-            //{
-            //    x = std::move(other.x);
-            //    y = std::move(other.y);
-            //}
 
             friend std::ostream& operator<<(std::ostream& os, const Vector2& vec2)
             {

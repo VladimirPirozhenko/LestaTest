@@ -1,15 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
     <Filter Include="glut">
       <UniqueIdentifier>{465be19b-57a5-4671-b8bb-49d57dd881fb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Input">
-      <UniqueIdentifier>{800617cc-4e2a-4318-9db9-39a459232e0b}</UniqueIdentifier>
     </Filter>
     <Filter Include="ParticleSystem">
       <UniqueIdentifier>{6ee83159-23b8-4a02-9792-b732c087087f}</UniqueIdentifier>
@@ -20,14 +13,14 @@
     <Filter Include="Utils">
       <UniqueIdentifier>{a962fd1a-813b-4531-b1cb-8f0b44b794e4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Main">
+      <UniqueIdentifier>{84eecae3-9cc4-47e8-9511-417404bf6bc2}</UniqueIdentifier>
+    </Filter>
     <Filter Include="ParticleSystem\Effects">
       <UniqueIdentifier>{7afb0582-355c-45dc-bc22-0b16d5be3c04}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="glut\glut_8x13.c">
       <Filter>glut</Filter>
     </ClCompile>
@@ -109,12 +102,6 @@
     <ClCompile Include="glut\win32_x11.c">
       <Filter>glut</Filter>
     </ClCompile>
-    <ClCompile Include="test.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Input.cpp">
-      <Filter>Source Files\Input</Filter>
-    </ClCompile>
     <ClCompile Include="ParticleSystem.cpp">
       <Filter>ParticleSystem</Filter>
     </ClCompile>
@@ -127,41 +114,23 @@
     <ClCompile Include="ParticleEmitter.cpp">
       <Filter>ParticleSystem</Filter>
     </ClCompile>
-    <ClCompile Include="ParticleCulling.cpp">
-      <Filter>ParticleSystem</Filter>
-    </ClCompile>
     <ClCompile Include="JobSystem.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
     <ClCompile Include="Random.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
-    <ClCompile Include="GravityModifier.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ParticleSystemManager.cpp">
-      <Filter>ParticleSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="ChainExplosionEffect.cpp">
-      <Filter>ParticleSystem\Effects</Filter>
-    </ClCompile>
     <ClCompile Include="ParticleRenderer.cpp">
       <Filter>ParticleSystem</Filter>
     </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="test.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="test.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Input.h">
-      <Filter>Source Files\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="MouseCodes.h">
-      <Filter>Source Files\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="KeyCodes.h">
-      <Filter>Source Files\Input</Filter>
-    </ClInclude>
     <ClInclude Include="Particle.h">
       <Filter>ParticleSystem</Filter>
     </ClInclude>
@@ -176,9 +145,6 @@
     </ClInclude>
     <ClInclude Include="ExplosionEffect.h">
       <Filter>ParticleSystem\Effects</Filter>
-    </ClInclude>
-    <ClInclude Include="ParticleCulling.h">
-      <Filter>ParticleSystem</Filter>
     </ClInclude>
     <ClInclude Include="ParticleEmitter.h">
       <Filter>ParticleSystem</Filter>
@@ -198,23 +164,14 @@
     <ClInclude Include="Action.h">
       <Filter>Utils</Filter>
     </ClInclude>
-    <ClInclude Include="ParticlePack.h">
-      <Filter>ParticleSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="GravityModifier.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ParticleSystemManager.h">
-      <Filter>ParticleSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="ChainExplosionEffect.h">
-      <Filter>ParticleSystem\Effects</Filter>
-    </ClInclude>
     <ClInclude Include="PtrTypedefs.h">
       <Filter>Utils</Filter>
     </ClInclude>
     <ClInclude Include="ParticleRenderer.h">
       <Filter>ParticleSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="test.h">
+      <Filter>Main</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

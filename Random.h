@@ -8,12 +8,12 @@ namespace LestaTest
 	class Random
 	{
 	public:
-		static inline void init()
+		static void init()
 		{
 			randomEngine_.seed(randomDevice_());		
 		}
 
-		static inline float getFloat()
+		static float getFloat()
 		{
 			randomEngine_.seed(randomDevice_());
 			return static_cast<float>(distribution_(randomEngine_)) / static_cast<float>((std::numeric_limits<size_t>::max)());
@@ -27,12 +27,12 @@ namespace LestaTest
 			return static_cast<float>(distribution(randomEngine_));
 		}
 
-		static inline Math::Vec2 getVec2(Math::Vec2 min, Math::Vec2 max)
+		static Math::Vec2 getVec2(Math::Vec2 min, Math::Vec2 max)
 		{
 			return Math::Vec2(getFloat(min.x, max.x), getFloat(min.y, max.y));
 		}
 
-		static inline Color getColor()
+		static Color getColor()
 		{
 			return Color(getFloat(),getFloat(),getFloat());
 		}

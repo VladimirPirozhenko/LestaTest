@@ -1,7 +1,6 @@
 #pragma once
 #include <unordered_map>
 
-//Sample usage - std::function<void(int)> f = std::bind(&Demo::DebugAction, this, std::placeholders::_1);
 template<class... agruments>
 class Action
 {
@@ -31,7 +30,6 @@ public:
 
 	void invoke(agruments&&...args) const
 	{
-	
 		for (const auto &subscriber : subscribers_)
 		{
 			subscriber.second(std::forward<agruments...>(args)...);

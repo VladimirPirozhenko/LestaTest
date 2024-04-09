@@ -11,7 +11,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ChainExplosionEffect.cpp" />
     <ClCompile Include="ExplosionEffect.cpp" />
     <ClCompile Include="glut\glut_8x13.c" />
     <ClCompile Include="glut\glut_9x15.c" />
@@ -40,34 +39,22 @@
     <ClCompile Include="glut\win32_util.c" />
     <ClCompile Include="glut\win32_winproc.c" />
     <ClCompile Include="glut\win32_x11.c" />
-    <ClCompile Include="GravityModifier.cpp" />
-    <ClCompile Include="Input.cpp" />
     <ClCompile Include="JobSystem.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Particle.cpp" />
-    <ClCompile Include="ParticleCulling.cpp" />
     <ClCompile Include="ParticleEmitter.cpp" />
     <ClCompile Include="ParticleRenderer.cpp" />
     <ClCompile Include="ParticleSystem.cpp" />
-    <ClCompile Include="ParticleSystemManager.cpp" />
     <ClCompile Include="Random.cpp" />
     <ClCompile Include="test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Action.h" />
-    <ClInclude Include="ChainExplosionEffect.h" />
     <ClInclude Include="ExplosionEffect.h" />
-    <ClInclude Include="GravityModifier.h" />
-    <ClInclude Include="Input.h" />
     <ClInclude Include="JobSystem.h" />
-    <ClInclude Include="KeyCodes.h" />
-    <ClInclude Include="MouseCodes.h" />
     <ClInclude Include="Particle.h" />
-    <ClInclude Include="ParticleCulling.h" />
     <ClInclude Include="ParticleEmitter.h" />
-    <ClInclude Include="ParticlePack.h" />
     <ClInclude Include="ParticleSystem.h" />
-    <ClInclude Include="ParticleSystemManager.h" />
     <ClInclude Include="Profiler.h" />
     <ClInclude Include="PtrTypedefs.h" />
     <ClInclude Include="Random.h" />
