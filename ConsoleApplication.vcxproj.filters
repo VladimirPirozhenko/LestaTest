@@ -133,9 +133,6 @@
     <ClCompile Include="JobSystem.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
-    <ClCompile Include="ThreadPool.cpp">
-      <Filter>Utils</Filter>
-    </ClCompile>
     <ClCompile Include="Random.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
@@ -148,14 +145,8 @@
     <ClCompile Include="ChainExplosionEffect.cpp">
       <Filter>ParticleSystem\Effects</Filter>
     </ClCompile>
-    <ClCompile Include="Job.cpp">
-      <Filter>Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="JobQueue.cpp">
-      <Filter>Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="Worker.cpp">
-      <Filter>Utils</Filter>
+    <ClCompile Include="ParticleRenderer.cpp">
+      <Filter>ParticleSystem</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -201,10 +192,7 @@
     <ClInclude Include="JobSystem.h">
       <Filter>Utils</Filter>
     </ClInclude>
-    <ClInclude Include="RingBuffer.h">
-      <Filter>Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="ThreadPool.h">
+    <ClInclude Include="ThreadSafeCircularBuffer.h">
       <Filter>Utils</Filter>
     </ClInclude>
     <ClInclude Include="Action.h">
@@ -227,15 +215,6 @@
     </ClInclude>
     <ClInclude Include="ParticleRenderer.h">
       <Filter>ParticleSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="JobQueue.h">
-      <Filter>Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="Job.h">
-      <Filter>Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="Worker.h">
-      <Filter>Utils</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

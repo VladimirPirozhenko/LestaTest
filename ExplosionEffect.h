@@ -10,31 +10,19 @@ namespace LestaTest
 	public:
 		ExplosionEffect()
 		{
-			//for (int i = 0; i < 2048;i++)
-			{
-				explosionParticleSystem_ = makePtr<ParticleSystem>();
-				const size_t emitRate = 400;
-				const size_t maxEffectsCount = 2048;
-				Color randomColor = Random::getColor();
-				ParticleEmitterPtr explosionEmitter_ = makePtr<ParticleEmitter>(Math::Vec2{ 0,0 }, Math::Vec2{ 1,1 },
-					Color(Random::getFloat(), Random::getFloat(), Random::getFloat()),
-													maxEffectsCount	* emitRate, emitRate,
-													Math::Vec2(3.5f,7.f));
+			explosionParticleSystem_ = makePtr<ParticleSystem>();
 
-				explosionEmitter_->setRandomVelocity({ -100,-100 }, { 100,100 });
+			const size_t emitRate = 500;
+			const size_t maxEffectsCount = 2048;
 
-				explosionEmitter_->addParticleExpireCallback("onExplode", std::bind(&ExplosionEffect::onExplode, this, std::placeholders::_1));
-				//emitter.onExpireCallback_.addSubscriber("chainedExplosion", std::bind(&ExplosionEffect::onExplode, this, std::placeholders::_1));
-				explosionParticleSystem_->addEmitter(explosionEmitter_);
-				//explosionParticleSystem_.addModifier(gravityModifier);
-			}
-		
-		/*	ParticleEmitter emitter(initialVelocity,particleCount);
-			emitter.setRandomVelocity(from,to);
+			explosionEmitter_ = makePtr<ParticleEmitter>(Math::Vec2{ 0,0 }, Math::Vec2{ 1,1 },
+												Random::getColor(),
+												maxEffectsCount	* emitRate, emitRate,
+												Math::Vec2(3.5f,7.f));
 
-			explosionParticleSystem_.addModifier(gravity);
-			explosionParticleSystem_.setDuration(5);
-			explosionParticleSystem_.addEmitter(emitter);*/
+			explosionEmitter_->setRandomVelocity({ -100,-100 }, { 100,100 });			
+			explosionEmitter_->addParticleExpireCallback("onExplode", std::bind(&ExplosionEffect::onParticleExpired, this, std::placeholders::_1));
+			explosionParticleSystem_->addEmitter(explosionEmitter_);
 		}
 		void setPosition(const Math::Vec2& pos)
 		{
@@ -53,16 +41,18 @@ namespace LestaTest
 		{
 			explosionParticleSystem_->render();
 		}
-		void onExplode(const Particle& particle)
+		void onParticleExpired(const Particle& particle)
 		{
-			if (Random::getFloat() > 0.5f)
+			const float explosionChance = 0.5f;
+			if (explosionChance > Random::getFloat())
 			{
-				explosionParticleSystem_->setPosition(particle.position);
+				explosionEmitter_->setPosition(particle.position);
+				//explosionEmitter_->setColor(particle.color);
 				explosionParticleSystem_->emit();
 			}			
 		}
 	private:
-		
+		ParticleEmitterPtr explosionEmitter_;
 		ParticleSystemPtr explosionParticleSystem_;
 	};
 

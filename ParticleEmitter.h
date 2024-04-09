@@ -47,15 +47,13 @@ namespace LestaTest
 			particlePool_.resize(particleBank);
 		}
 
-
-//#define THREADED
 		void particleExpired(Particle& particle)
 		{
 			particle.isAlive = false;
-			aliveParticleCount_.fetch_sub(1);
+			aliveParticleCount_--;
 			onExpireCallback_(std::move(particle));
 		}
-		
+
 		void update(float dt)
 		{
 			PROFILE_FUNCTION();
@@ -64,6 +62,12 @@ namespace LestaTest
 			{
 				if (!particle.isAlive)
 					continue;
+				if (!ParticleRenderer::isInFrustum_s(particle.position))
+				{
+					particle.isAlive = false;
+					aliveParticleCount_.fetch_sub(1);
+					continue;
+				}
 				if (particle.lifeTimeRemains <= 0.f)
 				{
 					particleExpired(particle);
@@ -141,42 +145,34 @@ namespace LestaTest
 //			std::unique_lock<std::mutex> lock(partilcePoolMutex_);
 			for (auto& pool : particlePools_)
 			{
-				JobSystem::get().execute([&, this]  {
-					//std::for_each(std::execution::par, pool.begin(), pool.end(), [&](Particle& particle)
-					//{
-					//	{
-					//		if (!particle.isAlive)
-					//			return;
-
-					//		if (particle.lifeTimeRemains <= 0.f)
-					//		{
-					//			particleExpired(particle);
-					//			return;
-					//		}
-					//		particle.lifeTimeRemains -= dt;
-					//		//s = s0 + v + at ^ 2 / 2
-					//		particle.position += (particle.velocity + Math::Vec2(std::powf(particle.acceleration.x, 2), std::powf(particle.acceleration.y, 2)) / 2) * dt;
-					//	}
-					//});
-					//std::for_each(line.begin(), line.end(), updateParticle);
-					for (auto& particle : pool)
-					{
-						if (!particle.isAlive)
-							continue;
-
-						if (particle.lifeTimeRemains <= 0.f)
+				{
+					//PROFILE_SCOPE("EXEC");
+					JobSystem::get().execute([&, this] {
+						for (auto& particle : pool)
 						{
-							particleExpired(particle);
-							continue;
+							if (!particle.isAlive)
+								continue;
+
+							if (!ParticleRenderer::isInFrustum_s(particle.position))
+							{
+								particle.isAlive = false;
+								aliveParticleCount_++;
+								continue;
+							}
+
+							if (particle.lifeTimeRemains <= 0.f)
+							{
+								particleExpired(particle);
+								continue;
+							}
+							particle.lifeTimeRemains -= dt;
+							particle.position += (particle.velocity + Math::Vec2(std::powf(particle.acceleration.x, 2), std::powf(particle.acceleration.y, 2)) / 2) * dt;
 						}
-						particle.lifeTimeRemains -= dt;
-						//s = s0 + v + at ^ 2 / 2
-						particle.position += (particle.velocity + Math::Vec2(std::powf(particle.acceleration.x, 2), std::powf(particle.acceleration.y, 2)) / 2) * dt;
-					}
 					});
+				}
 			}
 			JobSystem::get().wait();
-			if (aliveParticleCount_.load() == 0)
+			if (aliveParticleCount_ == 0)
 				isAlive_ = false;
 #endif
 		}
@@ -194,12 +190,12 @@ namespace LestaTest
 			{
 				if (!particle.isAlive)
 					continue;
-				if (!renderer->isInFrustum(particle.position))
+			/*	if (!renderer->isInFrustum(particle.position))
 				{
 					particle.isAlive = false;
 					aliveParticleCount_.fetch_sub(1);
 					continue;
-				}
+				}*/
 				renderer->render(particle.position, particle.color);
 				
 			}
@@ -210,12 +206,12 @@ namespace LestaTest
 				{
 					if (!particle.isAlive)
 						continue;
-					if (!renderer->isInFrustum(particle.position))
+			/*		if (!renderer->isInFrustum(particle.position))
 					{
 						particle.isAlive = false;
 						aliveParticleCount_.fetch_sub(1);
 						continue;
-					}
+					}*/
 					renderer->render(particle.position, particle.color);
 				}
 			}
@@ -275,7 +271,7 @@ namespace LestaTest
 				if (!particle.isAlive)
 				{
 					particle.isAlive = true;
-					aliveParticleCount_.fetch_add(1);
+					aliveParticleCount_++;
 				}
 
 				particle.position = particlePrefab_.position;
@@ -303,7 +299,9 @@ namespace LestaTest
 		}
 
 		inline void setPosition(const Math::Vec2 position) { particlePrefab_.position = position; }
-		inline Math::Vec2 getPosition() { return particlePrefab_.position; }
+		inline Math::Vec2 getPosition() const { return particlePrefab_.position; }
+		inline void setColor(const Color& color) { particlePrefab_.color = color; }
+		inline Color getColor() const { return particlePrefab_.color; }
 		inline bool isAlive() const { return isAlive_; }
 		inline Math::Vec2 getInitialVelocity() const { return initialVelocity_; }
 		inline void setRandomVelocity(const Math::Vec2& min, const Math::Vec2& max) //sets random additional velocity to initial velocity
@@ -334,7 +332,7 @@ namespace LestaTest
 
 		size_t emitRate_ = 0;
 		bool isAlive_ = false;
-		std::atomic_size_t aliveParticleCount_ = 0;
+		size_t aliveParticleCount_ = 0;
 		bool hasRandomVelocity_ = false;
 
 		Math::Vec2 initialVelocity_;

@@ -1,81 +1,73 @@
 #include "JobSystem.h"
 #include <iostream>
 
+#include "JobSystem.h"
+#include <iostream>
+//
 namespace LestaTest
 {
 	void JobSystem::init()
 	{
-		// init the worker execution state to 0:
-		finishedLabel.store(0);
-		std::cout << "init " << '\n';
-		// Retrieve the number of hardware threads in this system:
-		auto numCores = std::thread::hardware_concurrency();
+		jobCounter_.store(0);
 
-		// Calculate the actual number of worker threads we want:
-		numThreads = std::max(1u, numCores);
+		threadsCount_ = std::max(1u, std::thread::hardware_concurrency());
 
-		// Create all our worker threads while immediately starting them:
-		for (uint32_t threadID = 0; threadID < numThreads; ++threadID)
+		for (size_t threadID = 0; threadID < threadsCount_; threadID++)
 		{
 			std::thread worker([this] {
-
-				std::function<void()> job; // the current job for the thread, it's empty at start.
-				// This is the infinite loop that a worker thread will do 
+				Job job; 
 				while (true)
 				{
-					
-					//if (jobPool.pop(job)) // try to grab a job from the jobPool queue
-					if (jobPool.pop_front(job)) // try to grab a job from the jobPool queue
+					if (jobPool_.tryPop(job))
 					{
-						// It found a job, execute it:
-						job(); // execute job
-						finishedLabel.fetch_add(1); // update worker label state
+						job();
+						jobCounter_.fetch_sub(1); 
 					}
 					else
 					{
-						// no job, put thread to sleep
-						std::unique_lock<std::mutex> lock(wakeMutex);
-						wakeCondition.wait(lock);
+						std::unique_lock<std::mutex> lock(wakeMutex_);
+						wakeCondition_.wait(lock);
 					}
 				}
-
 				});
-			worker.detach(); // forget about this thread, let it do it's job in the infinite loop that we created above
+			worker.detach(); 
 		}
 	}
 
-	// This little helper function will not let the system to be deadlocked while the main thread is waiting for something
-	inline void JobSystem::poll()
+	void JobSystem::run()
 	{
-		wakeCondition.notify_one(); // wake one worker thread
-		std::this_thread::yield(); // allow this thread to be rescheduled
-	}
-
-	void JobSystem::execute(const std::function<void()>& job)
-	{
-		// The main thread label state is updated:
-		//currentLabel += 1;
-
-		// Try to push a new job until it is pushed successfully:
-		while (!jobPool.push_back(job))
+		Job job; 
+		if (jobPool_.tryPop(job))
 		{
-			poll();
+			job(); 
+			jobCounter_.fetch_sub(1); 
 		}
-
-		//wakeCondition.notify_one(); // wake one thread
 	}
 
-
-
-	bool JobSystem::isBusy()
+	void JobSystem::execute(const Job& job)
 	{
-		// Whenever the main thread label is not reached by the workers, it indicates that some worker is still alive
-		return finishedLabel.load() < currentLabel;
+		jobCounter_.fetch_add(1);
+		while (!jobPool_.tryPush(job))
+		{
+			if (hasWork())
+			{
+				wakeCondition_.notify_all();
+			}
+			std::this_thread::yield();
+		}
+	}
+
+	bool JobSystem::hasWork()
+	{
+		return jobCounter_.load() > 0;
 	}
 
 	void JobSystem::wait()
 	{
-		while (isBusy()) { poll(); }
+		while (hasWork())
+		{
+			wakeCondition_.notify_one(); 
+			std::this_thread::yield(); 
+		}
 	}
-
 }
