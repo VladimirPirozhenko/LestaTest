@@ -17,6 +17,6 @@
 
 # Использованные статьи
 
-https://dev.to/pauljlucas/advanced-thread-safety-in-c-3ap5
-https://vkguide.dev/docs/extra-chapter/multithreading/
+https://dev.to/pauljlucas/advanced-thread-safety-in-c-3ap5<br/>
+https://vkguide.dev/docs/extra-chapter/multithreading/<br/>
 https://yandexwebcache.net/yandbtm?fmode=inject&tm=1712735246&tld=ru&lang=en&la=1712021632&text=wicked+engine+job+system&url=https%3A//wickedengine.net/2018/11/24/simple-job-system-using-standard-c/comment-page-1/&l10n=ru&mime=html&sign=c339071bb14a9f7444fecf6fc0ada675&keyno=0
