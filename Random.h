@@ -36,6 +36,7 @@ namespace LestaTest
 		{
 			return Color(getFloat(),getFloat(),getFloat());
 		}
+
 	private:
 		static thread_local std::random_device randomDevice_; 
 		static thread_local std::mt19937 randomEngine_;

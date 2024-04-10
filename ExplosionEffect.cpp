@@ -1,6 +1,5 @@
 #include "ExplosionEffect.h"
 #include <functional>
-
 #include "ParticleEmitter.h"
 #include "ParticleSystem.h"
 #include "Random.h"
@@ -30,8 +29,8 @@ namespace LestaTest
 			totalParticleCount, emitRate,
 			Math::Vec2(3.5f, 7.f));
 
-		const Math::Vec2 minVelocity = Math::Vec2{ -100,-100 };
-		const Math::Vec2 maxVelocity = Math::Vec2{ 100, 100 };
+		const Math::Vec2 minVelocity = Math::Vec2{ -75,-75 };
+		const Math::Vec2 maxVelocity = Math::Vec2{ 75, 75 };
 		explosionEmitter_->setRandomVelocity(minVelocity, maxVelocity);
 		explosionEmitter_->addParticleExpireCallback("onExplode", std::bind(&ExplosionEffect::onParticleExpired, this, std::placeholders::_1));
 	}

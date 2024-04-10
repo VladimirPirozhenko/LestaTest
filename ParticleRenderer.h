@@ -3,11 +3,13 @@
 #include "Color.h"
 #include "PtrTypedefs.h"
 
-namespace platform
+namespace test
 {
 	const float SCREEN_WIDTH = 1024;
 	const float SCREEN_HEIGHT = 768;
-
+}
+namespace platform
+{
 	void drawPoint(float x, float y, float r, float g, float b, float a);
 };
 

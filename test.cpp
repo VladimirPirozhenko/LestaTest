@@ -25,9 +25,6 @@ namespace test
 	static LestaTest::ExplosionEffect explosionEffect;
 }
 
-using namespace LestaTest;
-using namespace LestaTest::Math;
-
 static Math::Vec2 mousePosition;
 static std::atomic_int inputDataReady{ 0 };
 

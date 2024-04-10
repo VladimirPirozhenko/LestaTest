@@ -41,7 +41,6 @@
     <ClCompile Include="glut\win32_x11.c" />
     <ClCompile Include="JobSystem.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Particle.cpp" />
     <ClCompile Include="ParticleEmitter.cpp" />
     <ClCompile Include="ParticleRenderer.cpp" />
     <ClCompile Include="ParticleSystem.cpp" />

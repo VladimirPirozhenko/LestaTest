@@ -1,6 +1,5 @@
 #include "ParticleEmitter.h"
 #include "Random.h"
-#include "Profiler.h"
 #include "JobSystem.h"
 #include "ParticleRenderer.h"
 
@@ -39,7 +38,6 @@ namespace LestaTest
 
 	void ParticleEmitter::update(float dt)
 	{
-		//PROFILE_FUNCTION();
 		for (auto& pool : particlePools_)
 		{
 			JobSystem::get().execute([&, this]

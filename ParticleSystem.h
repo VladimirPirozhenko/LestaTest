@@ -22,7 +22,6 @@ namespace LestaTest
 		void setRenderer(const IParticleRendererPtr renderer);
 
 	private:
-
 		IParticleRendererPtr renderer_;
 		std::vector<ParticleEmitterPtr> emitters_;
 	};	

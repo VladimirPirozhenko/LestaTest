@@ -1,13 +1,10 @@
 #pragma once
 #include <functional>
 #include <ThreadSafeCircularBuffer.h>
-#include <algorithm>   
 #include <atomic>    
 #include <thread>   
 #include <mutex>
 #include <condition_variable>    
-#include <sstream>
-#include <assert.h>
 
 namespace LestaTest
 {
@@ -38,7 +35,8 @@ namespace LestaTest
 		JobSystem() = default;
 
 		size_t threadsCount_ = 0;    
-		ThreadSafeCircularBuffer<Job, 512> jobPool_;  
+		constexpr static size_t jobPoolSize_ = 512;
+		ThreadSafeCircularBuffer<Job, jobPoolSize_> jobPool_;
 		std::condition_variable wakeCondition_;    
 		std::mutex wakeMutex_;  
 		std::atomic_size_t jobCounter_;   

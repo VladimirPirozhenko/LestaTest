@@ -24,7 +24,7 @@ void display(void)
 {
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glEnable(GL_BLEND);
-	glClearColor(0.0,0.0,0.0,0.0);
+	glClearColor(0.0, 0.0, 0.0, 0.0);
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	nvtxRangePush("test::render()");
@@ -44,6 +44,7 @@ void idle(void)
 	static int lastTime = 0;
 	int delta = time - lastTime;
 	lastTime = time;
+
 	// check memory
 	{
 		static int nextStats = -1;
@@ -64,12 +65,12 @@ void idle(void)
 	{
 		static int nextAnim = -1;
 		static int animPos = 0;
-		const char *animation = "-\\|/-\\|/";
+		const char* animation = "-\\|/-\\|/";
 
 		if (nextAnim < time)
 		{
 			printf("\b\b%c ", animation[animPos]);
-			animPos = (animPos+1) % (8);
+			animPos = (animPos + 1) % (8);
 			nextAnim = time + 60;
 		}
 	}
@@ -79,6 +80,7 @@ void idle(void)
 	nvtxRangePop();
 
 	glutPostWindowRedisplay(currentWindow);
+
 	nvtxRangePop();
 };
 
@@ -105,18 +107,18 @@ void initWindow(void)
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	glOrtho(0, platform::SCREEN_WIDTH, 0, platform::SCREEN_HEIGHT, 0, 40);
-	glMatrixMode(GL_MODELVIEW); 
+	glOrtho(0, test::SCREEN_WIDTH, 0, test::SCREEN_HEIGHT, 0, 40);
+	glMatrixMode(GL_MODELVIEW);
 	glPointSize(3.0);
 
 	currentWindow = glutGetWindow();
 };
 
-int main(int argc, char **argv)
+int main(int argc, char** argv)
 {
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
-	glutInitWindowSize((int)platform::SCREEN_WIDTH, (int)platform::SCREEN_HEIGHT);
+	glutInitWindowSize((int)test::SCREEN_WIDTH, (int)test::SCREEN_HEIGHT);
 	originalWindow = glutCreateWindow("asteroids");
 	initWindow();
 

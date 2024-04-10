@@ -1,9 +1,4 @@
 #include "JobSystem.h"
-#include <iostream>
-
-#include "JobSystem.h"
-#include <iostream>
-#include "Profiler.h"
 
 namespace LestaTest
 {
@@ -44,7 +39,6 @@ namespace LestaTest
 			jobCounter_.fetch_sub(1);
 			return;
 		}
-
 		std::unique_lock<std::mutex> lock(wakeMutex_);
 		wakeCondition_.wait(lock);
 	}
