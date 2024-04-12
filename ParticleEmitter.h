@@ -37,7 +37,7 @@ namespace LestaTest
 
 		bool isAlive_ = false;
 		size_t emitRate_ = 0;
-		size_t aliveParticleCount_ = 0;
+		std::atomic_size_t aliveParticleCount_ {0};
 		Action<const Particle&> onExpireCallback_;
 
 		Math::Vec2 initialVelocity_;

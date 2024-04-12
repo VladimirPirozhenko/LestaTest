@@ -6,7 +6,7 @@ namespace LestaTest
 
 	ParticleRendererPtr ParticleRenderer::create()
 	{
-		return ParticleRendererPtr(std::make_shared<ParticleRenderer>());
+		return ParticleRendererPtr(makePtr<ParticleRenderer>());
 	}
 
 	void ParticleRenderer::render(const Math::Vec2& pos, const Color& color) const

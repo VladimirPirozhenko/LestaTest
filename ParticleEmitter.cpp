@@ -32,7 +32,7 @@ namespace LestaTest
 	void ParticleEmitter::particleExpired(Particle& particle)
 	{
 		particle.isAlive = false;
-		aliveParticleCount_--;
+		aliveParticleCount_.fetch_sub(1);
 		onExpireCallback_(std::move(particle));
 	}
 
@@ -50,7 +50,7 @@ namespace LestaTest
 						if (!ParticleRenderer::isInFrustum(particle.position))
 						{
 							particle.isAlive = false;
-							aliveParticleCount_++;
+							aliveParticleCount_.fetch_sub(1);
 							continue;
 						}
 
@@ -92,7 +92,7 @@ namespace LestaTest
 			if (!particle.isAlive)
 			{
 				particle.isAlive = true;
-				aliveParticleCount_++;
+				aliveParticleCount_.fetch_add(1);
 			}
 
 			particle.position = particlePrefab_.position;
@@ -105,7 +105,7 @@ namespace LestaTest
 			particle.lifeTime = Random::getFloat(minLifeTime, maxLifeTime);
 			particle.lifeTimeRemains = particle.lifeTime;
 			particle.color = particlePrefab_.color;
-			const float gravity = 10.f;
+			const float gravity = 20.f;
 			particle.acceleration = Math::Vec2(0.f, gravity);
 		}
 		if (poolIndex_ == 0)

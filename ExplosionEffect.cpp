@@ -17,7 +17,7 @@ namespace LestaTest
 
 	void ExplosionEffect::createExplosionsEmitter()
 	{
-		const size_t emitRate = 64;
+		const size_t emitRate = 500;
 		const size_t maxEffectsCount = 2048;
 		const Math::Vec2 initialPosition = Math::Vec2{ 0,0 };
 		const Math::Vec2 initialVelocity = Math::Vec2{ 0,0 };
