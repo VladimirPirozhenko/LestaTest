@@ -105,7 +105,7 @@ namespace LestaTest
 			particle.lifeTime = Random::getFloat(minLifeTime, maxLifeTime);
 			particle.lifeTimeRemains = particle.lifeTime;
 			particle.color = particlePrefab_.color;
-			const float gravity = 20.f;
+			const float gravity = 10.f;
 			particle.acceleration = Math::Vec2(0.f, gravity);
 		}
 		if (poolIndex_ == 0)
